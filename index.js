@@ -72,12 +72,12 @@ app.get("/data", (req, res) => {
 
 // GET /livres
 app.get("/livres", (req, res) => {
-  const sql = "SELECT * FROM Livres ORDER BY Titre";
+  const sql = "SELECT * FROM hoodie ORDER BY id";
   db.all(sql, [], (err, rows) => {
     if (err) {
       return console.error(err.message);
     }
-    res.render("livres", { model: rows });
+    res.render("livres", { hoodies: rows });
   });
 });
 
