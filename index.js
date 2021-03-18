@@ -124,13 +124,13 @@ app.get("/001010", (req, res) => {
   });
 });
 
-app.get("/0010056", (req, res) => {
+app.get("/001005", (req, res) => {
   const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/001005?device=&d_cat_cd=001005&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY id" ;
   db.all(sql, [], (err, rows) => {
     if (err) {
       return console.error(err.message);
     }
-    res.render("0010056", { hoodies: rows });
+    res.render("001005", { hoodies: rows });
   });
 });
 
