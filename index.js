@@ -50,11 +50,11 @@ app.listen(3000, () => {
     console.log("Serveur démarré (http://localhost:3000/) !");
 });
 
-// GET /
-app.get("/", (req, res) => {
-  // res.send("Bonjour le monde...");
-  res.render("index");
-});
+// // GET /
+// app.get("/", (req, res) => {
+//   // res.send("Bonjour le monde...");
+//   res.render("index");
+// });
 
 // GET /about
 app.get("/about", (req, res) => {
@@ -70,16 +70,143 @@ app.get("/data", (req, res) => {
   res.render("data", { model: test });
 });
 
-// GET /livres
-app.get("/livres", (req, res) => {
-  const sql = "SELECT * FROM hoodie ORDER BY id";
+// GET /MUSINSAs data
+app.get("/", (req, res) => {
+  const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/001001?device=&d_cat_cd=001001&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY id" ;
   db.all(sql, [], (err, rows) => {
     if (err) {
       return console.error(err.message);
     }
-    res.render("livres", { hoodies: rows });
+    res.render("base", { hoodies: rows });
   });
 });
+
+app.get("/003007", (req, res) => {
+  const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/003007?device=&d_cat_cd=003007&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY id" ;
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      return console.error(err.message);
+    }
+    res.render("003007", { hoodies: rows });
+  });
+});
+
+app.get("/003009", (req, res) => {
+  const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/003009?device=&d_cat_cd=003009&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY id" ;
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      return console.error(err.message);
+    }
+    res.render("003009", { hoodies: rows });
+  });
+});
+
+
+
+app.get("/003004", (req, res) => {
+  const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/003004?device=&d_cat_cd=003004&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY id" ;
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      return console.error(err.message);
+    }
+    res.render("003004", { hoodies: rows });
+  });
+});
+
+i = 001010;
+app.get("/001010", (req, res) => {
+  const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/001010?device=&d_cat_cd=001010&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY id" ;
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      return console.error(err.message);
+    }
+    res.render("001010", { hoodies: rows });
+  });
+});
+
+app.get("/0010056", (req, res) => {
+  const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/001005?device=&d_cat_cd=001005&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY id" ;
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      return console.error(err.message);
+    }
+    res.render("0010056", { hoodies: rows });
+  });
+});
+
+app.get("/001004", (req, res) => {
+  const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/001004?device=&d_cat_cd=001004&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY id" ;
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      return console.error(err.message);
+    }
+    res.render("001004", { hoodies: rows });
+  });
+});
+
+app.get("/001006", (req, res) => {
+  const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/001006?device=&d_cat_cd=001006&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY id" ;
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      return console.error(err.message);
+    }
+    res.render("001006", { hoodies: rows });
+  });
+});
+
+app.get("/002022", (req, res) => {
+  const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/002022?device=&d_cat_cd=002022&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY id" ;
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      return console.error(err.message);
+    }
+    res.render("002022", { hoodies: rows });
+  });
+});
+
+app.get("/002020", (req, res) => {
+  const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/002020?device=&d_cat_cd=002020&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY id" ;
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      return console.error(err.message);
+    }
+    res.render("002020", { hoodies: rows });
+  });
+});
+
+app.get("/002023", (req, res) => {
+  const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/002023?device=&d_cat_cd=002023&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY id" ;
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      return console.error(err.message);
+    }
+    res.render("002023", { hoodies: rows });
+  });
+});
+
+app.get("/002018", (req, res) => {
+  const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/002018?device=&d_cat_cd=002018&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY id" ;
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      return console.error(err.message);
+    }
+    res.render("002018", { hoodies: rows });
+  });
+});
+
+app.get("/002015", (req, res) => {
+  const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/002015?device=&d_cat_cd=002015&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY id" ;
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      return console.error(err.message);
+    }
+    res.render("002015", { hoodies: rows });
+  });
+});
+
+
+
+
 
 // GET /create
 app.get("/create", (req, res) => {
@@ -146,3 +273,4 @@ app.post("/delete/:id", (req, res) => {
     res.redirect("/livres");
   });
 });
+
