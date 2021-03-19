@@ -47,7 +47,7 @@ db.run(sql_create, err => {
 
 // Démarrage du serveur
 app.listen(3000, () => {
-    console.log("Serveur démarré (http://localhost:3000/) !");
+    console.log("Serveur démarré ( http://localhost:3000/ ) !");
 });
 
 // // GET /
@@ -70,9 +70,16 @@ app.get("/data", (req, res) => {
   res.render("data", { model: test });
 });
 
+const { Sequelize } = require('sequelize');
+
+// Option 1: Passing a connection URI
+const sequelize = new Sequelize('sqlite::memory:') // Example for sqlite
+
+
+
 // GET /MUSINSAs data
 app.get("/", (req, res) => {
-  const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/001001?device=&d_cat_cd=001001&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY id" ;
+  const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/001001?device=&d_cat_cd=001001&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY sales_qty DESC" ;
   db.all(sql, [], (err, rows) => {
     if (err) {
       return console.error(err.message);
@@ -82,7 +89,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/003007", (req, res) => {
-  const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/003007?device=&d_cat_cd=003007&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY id" ;
+  const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/003007?device=&d_cat_cd=003007&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY sales_qty DESC" ;
   db.all(sql, [], (err, rows) => {
     if (err) {
       return console.error(err.message);
@@ -92,7 +99,7 @@ app.get("/003007", (req, res) => {
 });
 
 app.get("/003009", (req, res) => {
-  const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/003009?device=&d_cat_cd=003009&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY id" ;
+  const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/003009?device=&d_cat_cd=003009&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY sales_qty DESC" ;
   db.all(sql, [], (err, rows) => {
     if (err) {
       return console.error(err.message);
@@ -104,7 +111,7 @@ app.get("/003009", (req, res) => {
 
 
 app.get("/003004", (req, res) => {
-  const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/003004?device=&d_cat_cd=003004&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY id" ;
+  const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/003004?device=&d_cat_cd=003004&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY sales_qty DESC" ;
   db.all(sql, [], (err, rows) => {
     if (err) {
       return console.error(err.message);
@@ -115,7 +122,7 @@ app.get("/003004", (req, res) => {
 
 i = 001010;
 app.get("/001010", (req, res) => {
-  const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/001010?device=&d_cat_cd=001010&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY id" ;
+  const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/001010?device=&d_cat_cd=001010&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY sales_qty DESC" ;
   db.all(sql, [], (err, rows) => {
     if (err) {
       return console.error(err.message);
@@ -125,7 +132,7 @@ app.get("/001010", (req, res) => {
 });
 
 app.get("/001005", (req, res) => {
-  const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/001005?device=&d_cat_cd=001005&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY id" ;
+  const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/001005?device=&d_cat_cd=001005&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY sales_qty DESC" ;
   db.all(sql, [], (err, rows) => {
     if (err) {
       return console.error(err.message);
@@ -135,7 +142,7 @@ app.get("/001005", (req, res) => {
 });
 
 app.get("/001004", (req, res) => {
-  const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/001004?device=&d_cat_cd=001004&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY id" ;
+  const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/001004?device=&d_cat_cd=001004&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY sales_qty DESC" ;
   db.all(sql, [], (err, rows) => {
     if (err) {
       return console.error(err.message);
@@ -145,7 +152,7 @@ app.get("/001004", (req, res) => {
 });
 
 app.get("/001006", (req, res) => {
-  const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/001006?device=&d_cat_cd=001006&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY id" ;
+  const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/001006?device=&d_cat_cd=001006&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY sales_qty DESC" ;
   db.all(sql, [], (err, rows) => {
     if (err) {
       return console.error(err.message);
@@ -155,7 +162,7 @@ app.get("/001006", (req, res) => {
 });
 
 app.get("/002022", (req, res) => {
-  const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/002022?device=&d_cat_cd=002022&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY id" ;
+  const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/002022?device=&d_cat_cd=002022&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY sales_qty DESC" ;
   db.all(sql, [], (err, rows) => {
     if (err) {
       return console.error(err.message);
@@ -165,7 +172,7 @@ app.get("/002022", (req, res) => {
 });
 
 app.get("/002020", (req, res) => {
-  const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/002020?device=&d_cat_cd=002020&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY id" ;
+  const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/002020?device=&d_cat_cd=002020&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY sales_qty DESC" ;
   db.all(sql, [], (err, rows) => {
     if (err) {
       return console.error(err.message);
@@ -175,7 +182,7 @@ app.get("/002020", (req, res) => {
 });
 
 app.get("/002023", (req, res) => {
-  const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/002023?device=&d_cat_cd=002023&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY id" ;
+  const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/002023?device=&d_cat_cd=002023&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY sales_qty DESC" ;
   db.all(sql, [], (err, rows) => {
     if (err) {
       return console.error(err.message);
@@ -185,7 +192,7 @@ app.get("/002023", (req, res) => {
 });
 
 app.get("/002018", (req, res) => {
-  const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/002018?device=&d_cat_cd=002018&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY id" ;
+  const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/002018?device=&d_cat_cd=002018&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY sales_qty DESC" ;
   db.all(sql, [], (err, rows) => {
     if (err) {
       return console.error(err.message);
@@ -195,7 +202,7 @@ app.get("/002018", (req, res) => {
 });
 
 app.get("/002015", (req, res) => {
-  const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/002015?device=&d_cat_cd=002015&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY id" ;
+  const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/002015?device=&d_cat_cd=002015&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY sales_qty DESC" ;
   db.all(sql, [], (err, rows) => {
     if (err) {
       return console.error(err.message);
