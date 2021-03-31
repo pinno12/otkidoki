@@ -78,15 +78,65 @@ const sequelize = new Sequelize('sqlite::memory:') // Example for sqlite
 
 
 // GET /MUSINSAs data
-app.get("/", (req, res) => {
-  const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/001001?device=&d_cat_cd=001001&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY sales_qty DESC" ;
+// app.get("/", (req, res) => {
+//   const sql = "SELECT * FROM all_3 where category = 'https://search.musinsa.com/category/001001?device=&d_cat_cd=001001&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY sales_qty DESC" ;
+ 
+//   db.all(sql, [], (err, rows) => {
+//     if (err) {
+//       return console.error(err.message);
+//     }
+//     res.render("base", { hoodies: rows });
+//   });
+// });
+
+app.get(["/","/:month"], (req, res) => {
+  var sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/001001?device=&d_cat_cd=001001&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY sales_qty DESC" ;
+  
+  var id = req.params.month;
+  console.log(id)
+  if(id){
+    var sql = 'SELECT * FROM all_3 WHERE date = ?' + "AND category = 'https://search.musinsa.com/category/001001?device=&d_cat_cd=001001&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY sales_qty DESC";
+    db.all(sql, [id], (err, rows) => {//[id] : 사용자로부터 받은 id
+      if(err) {
+        console.log(err);
+        res.status(500).send('Internal Server Error');
+      } else {
+        console.log("야야야야")
+        rows.forEach((row) => {
+          console.log(row.id);
+
+        });
+        res.render('base', { hoodies: rows });
+      }
+    });
+  }else { 
+   
   db.all(sql, [], (err, rows) => {
     if (err) {
       return console.error(err.message);
     }
     res.render("base", { hoodies: rows });
   });
+}
+
 });
+
+
+// app.post("/search", (req, res) => {
+//   var str = {
+//     month: req.body.month
+//   }
+//   db.query('SELECT * FROM all_3  WHERE date ='+ str.month + "AND category = 'https://search.musinsa.com/category/001001?device=&d_cat_cd=001001&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY sales_qty DESC", function(err, rows, fields){
+//   if (err) throw err;
+//   var data = [];
+//   for(i=0;i<rows.length;i++)
+//         {
+//             data.push(rows[i]);
+//         }
+//         res.render("base", { hoodies: data });
+
+// });
+// });
 
 app.get("/003007", (req, res) => {
   const sql = "SELECT * FROM all_3 WHERE category = 'https://search.musinsa.com/category/003007?device=&d_cat_cd=003007&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY sales_qty DESC" ;
