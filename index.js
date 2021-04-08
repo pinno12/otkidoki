@@ -4,6 +4,11 @@ const sqlite3 = require("sqlite3").verbose();
 
 // Création du serveur Express
 const app = express();
+// const nunjucks = require('nunjucks');
+// nunjucks.configure('views', {
+//   autoescape: true,
+//   express: app
+// });
 
 // Configuration du serveur
 app.set("view engine", "ejs");
@@ -51,23 +56,16 @@ app.listen(3000, () => {
 });
 
 
-
-
-// GET /MUSINSAs data
-// app.get("/", (req, res) => {
-//   const sql = "SELECT * FROM all_3 where category = 'https://search.musinsa.com/category/001001?device=&d_cat_cd=001001&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q=' ORDER BY sales_qty DESC" ;
- 
-//   db.all(sql, [], (err, rows) => {
-//     if (err) {
-//       return console.error(err.message);
-//     }
-//     res.render("base", { hoodies: rows });
-//   });
-// });
 app.get("/", function (req, res) {
   res.redirect("/002018/2104");
  });
 
+
+let months = [ 210315, 2104]
+
+ app.get("/", function (req, res) {
+  res.redirect("/002018/2104");
+ });
  app.get("/:category/:month", (req, res) => {
   
   var category= req.params.category;
@@ -76,30 +74,19 @@ app.get("/", function (req, res) {
      console.log('month:',month);
  
   if(category){
-    db.all(`SELECT * FROM all_3 WHERE category = ${category} AND date = ${month} ORDER BY sales_qty DESC`, (err, rows)  => {//[id] : 사용자로부터 받은 id
+    db.all(`SELECT * FROM all_3 WHERE category = '${category}' AND date = '${month}' ORDER BY  sales_qty DESC, first_img`, (err, rows)  => {//[id] : 사용자로부터 받은 id
       if(err) {
         console.log(err);
         console.log(rows)
         res.status(500).send(err);
       } else {
-        console.log(rows)      
-        res.render('base', { hoodies: rows, now:now });
+       
+        res.render('base', { hoodies: rows, months:months });
       }    
     });
   }else {    
-    res.status(500).send('Internal Server E;ror');
-}
-});
-  
-
-app.get("/003007", (req, res) => {
-  const sql = "SELECT * FROM all_3 WHERE date = "210315" and; category = 'https://search.musinsa.com/category/003007?device=&d_cat_cd=003007&brand=&rate=&page_kind=search&list_kind=small&sort=sale_high&sub_sort=1y&page=1&display_cnt=90&sale_goods=&ex_soldout=&color=&price1=&price2=&exclusive_yn=&size=&tags=&sale_campaign_yn=&timesale_yn=&q='  ORDER BY sales_qty DESC" ;
-  db.all(sql, [], (err, rows) => {
-    if (err) {
-      return console.error(err.message);
-    }
-    res.render("003007", { hoodies: rows });
-  });
+    res.status(500).send('Internal Server Error');
+  }
 });
 
 
