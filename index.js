@@ -3,12 +3,85 @@ const path = require("path");
 const sqlite3 = require("sqlite3").verbose();
 
 // Création du serveur Express
+
+var passport = require('passport');
+var Strategy = require('passport-local').Strategy;
+var db2 = require('./models');
+
+
+// Configure the local strategy for use by Passport.
+//
+// The local strategy requires a `verify` function which receives the credentials
+// (`username` and `password`) submitted by the user.  The function must verify
+// that the password is correct and then invoke `cb` with a user object, which
+// will be set at `req.user` in route handlers after authentication.
+passport.use(new Strategy(
+  function(username, password, cb) {
+    db2.users.findByUsername(username, function(err, user) {
+      if (err) { return cb(err); }
+      if (!user) { return cb(null, false); }
+      if (user.password != password) { return cb(null, false); }
+      return cb(null, user);
+    });
+  }));
+
+
+// Configure Passport authenticated session persistence.
+//
+// In order to restore authentication state across HTTP requests, Passport needs
+// to serialize users into and deserialize users out of the session.  The
+// typical implementation of this is as simple as supplying the user ID when
+// serializing, and querying the user record by ID from the database when
+// deserializing.
+passport.serializeUser(function(user, cb) {
+  cb(null, user.id);
+});
+
+passport.deserializeUser(function(id, cb) {
+  db2.users.findById(id, function (err, user) {
+    if (err) { return cb(err); }
+    cb(null, user);
+  });
+});
+
+
 const app = express();
-// const nunjucks = require('nunjucks');
-// nunjucks.configure('views', {
-//   autoescape: true,
-//   express: app
-// });
+
+// Use application-level middleware for common functionality, including
+// logging, parsing, and session handling.
+app.use(require('morgan')('combined'));
+app.use(require('body-parser').urlencoded({ extended: true }));
+app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
+
+// Initialize Passport and restore authentication state, if any, from the
+// session.
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.get('/login',
+  function(req, res){
+    res.render('login');
+  });
+  
+app.post('/login', 
+  passport.authenticate('local', { failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/');
+  });
+  
+app.get('/logout',
+  function(req, res){
+    req.logout();
+    res.redirect('/');
+  });
+
+app.get('/profile',
+  require('connect-ensure-login').ensureLoggedIn(),
+  function(req, res){
+    res.render('profile', { user: req.user });
+  });
+
+
 
 // Configuration du serveur
 app.set("view engine", "ejs");
@@ -63,10 +136,8 @@ app.get("/", function (req, res) {
 
 let months = [ 210315, 2104]
 
- app.get("/", function (req, res) {
-  res.redirect("/002018/2104");
- });
- app.get("/:category/:month", (req, res) => {
+
+ app.get("/:category/:month",  require('connect-ensure-login').ensureLoggedIn(),(req, res) => {
   
   var category= req.params.category;
   var month = req.params.month;
@@ -81,79 +152,11 @@ let months = [ 210315, 2104]
         res.status(500).send(err);
       } else {
        
-        res.render('base', { hoodies: rows, months:months });
+        res.render('base', { hoodies: rows, months:months, user: req.user});
       }    
     });
   }else {    
     res.status(500).send('Internal Server Error');
   }
-});
-
-
-
-// GET /create
-app.get("/create", (req, res) => {
-  res.render("create", { model: {} });
-});
-
-// POST /create
-app.post("/create", (req, res) => {
-  const sql = "INSERT INTO Livres (Titre, Auteur, Commentaires) VALUES (?, ?, ?)";
-  const book = [req.body.Titre, req.body.Auteur, req.body.Commentaires];
-  db.run(sql, book, err => {
-    if (err) {
-      return console.error(err.message);
-    }
-    res.redirect("/livres");
-  });
-});
-
-// GET /edit/5
-app.get("/edit/:id", (req, res) => {
-  const id = req.params.id;
-  const sql = "SELECT * FROM Livres WHERE Livre_ID = ?";
-  db.get(sql, id, (err, row) => {
-    if (err) {
-      return console.error(err.message);
-    }
-    res.render("edit", { model: row });
-  });
-});
-
-// POST /edit/5
-app.post("/edit/:id", (req, res) => {
-  const id = req.params.id;
-  const book = [req.body.Titre, req.body.Auteur, req.body.Commentaires, id];
-  const sql = "UPDATE Livres SET Titre = ?, Auteur = ?, Commentaires = ? WHERE (Livre_ID = ?)";
-  db.run(sql, book, err => {
-    if (err) {
-      return console.error(err.message);
-    }
-    res.redirect("/livres");
-  });
-});
-
-// GET /delete/5
-app.get("/delete/:id", (req, res) => {
-  const id = req.params.id;
-  const sql = "SELECT * FROM Livres WHERE Livre_ID = ?";
-  db.get(sql, id, (err, row) => {
-    if (err) {
-      return console.error(err.message);
-    }
-    res.render("delete", { model: row });
-  });
-});
-
-// POST /delete/5
-app.post("/delete/:id", (req, res) => {
-  const id = req.params.id;
-  const sql = "DELETE FROM Livres WHERE Livre_ID = ?";
-  db.run(sql, id, err => {
-    if (err) {
-      return console.error(err.message);
-    }
-    res.redirect("/livres");
-  });
 });
 
