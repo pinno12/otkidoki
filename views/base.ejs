@@ -47,29 +47,29 @@
             <a class="nav-link dropdown-toggle" href="#" id="dropdown07" data-bs-toggle="dropdown" aria-expanded="false">바지</a>
             <ul class="dropdown-menu" aria-labelledby="dropdown07">
 
-              <li>  <a class="dropdown-item" href="/003007/<%= months[1] %>">코튼</a></li>
-              <li><a class="dropdown-item" href="/003009/<%= months[1] %>">숏 팬츠</a></li>
-              <li>   <a class="dropdown-item" href="/003004/<%= months[1] %>">트레이닝/조거</a></li>
+              <li>  <a class="dropdown-item" href="/003007/<%= months[2] %>">코튼</a></li>
+              <li><a class="dropdown-item" href="/003009/<%= months[2] %>">숏 팬츠</a></li>
+              <li>   <a class="dropdown-item" href="/003004/<%= months[2] %>">트레이닝/조거</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="dropdown07" data-bs-toggle="dropdown" aria-expanded="false">상의</a>
             <ul class="dropdown-menu" aria-labelledby="dropdown07">
-              <li><a class="dropdown-item" href="/001001/<%= months[1] %>">반팔</a></li>
-              <li><a class="dropdown-item" href="/001010/<%= months[1] %>">긴팔</a></li>
-              <li><a class="dropdown-item" href="/001005/<%= months[1] %>">맨투맨</a></li>
-              <li><a class="dropdown-item" href="/001004/<%= months[1] %>">후드</a></li>
-              <li><a class="dropdown-item" href="/001006/<%= months[1] %>">니트</a></li>
+              <li><a class="dropdown-item" href="/001001/<%= months[2] %>">반팔</a></li>
+              <li><a class="dropdown-item" href="/001010/<%= months[2] %>">긴팔</a></li>
+              <li><a class="dropdown-item" href="/001005/<%= months[2] %>">맨투맨</a></li>
+              <li><a class="dropdown-item" href="/001004/<%= months[2] %>">후드</a></li>
+              <li><a class="dropdown-item" href="/001006/<%= months[2] %>">니트</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="dropdown07" data-bs-toggle="dropdown" aria-expanded="false">아우터</a>
             <ul class="dropdown-menu" aria-labelledby="dropdown07">
-              <li><a class="dropdown-item" href="/002022/<%= months[1] %>">후드집업</a></li>
-              <li><a class="dropdown-item" href="/002020/<%= months[1] %>">카디건</a></li>
-              <li><a class="dropdown-item" href="/002023/<%= months[1] %>">폴리스/뽀글이</a></li>
-              <li><a class="dropdown-item" href="/002018/<%= months[1] %>">트레이닝 재킷</a></li>
-              <li><a class="dropdown-item" href="/002015/<%= months[1] %>">기타 아우터</a></li>
+              <li><a class="dropdown-item" href="/002022/<%= months[2] %>">후드집업</a></li>
+              <li><a class="dropdown-item" href="/002020/<%= months[2] %>">카디건</a></li>
+              <li><a class="dropdown-item" href="/002023/<%= months[2] %>">폴리스/뽀글이</a></li>
+              <li><a class="dropdown-item" href="/002018/<%= months[2] %>">트레이닝 재킷</a></li>
+              <li><a class="dropdown-item" href="/002015/<%= months[2] %>">기타 아우터</a></li>
             </ul>
           </li>
           <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
@@ -88,6 +88,7 @@
     <section id = "months" class = "mb-5">
      <a href = "<%= months[0] %>" class="ui teal button">3월</a>
      <a href = "<%= months[1] %>" class="ui teal button">4월</a>
+     <a href = "<%= months[2] %>" class="ui teal button">5월</a>
     </section>   
     <div class="row flex-row-reverse ">
       <div class="col-lg-3">
@@ -97,9 +98,10 @@
               <thead>
                 <tr>
                   <th colspan="2">
-                   <a class = "title" href='<%= hoodies[1].link %>' target = "_blank" alt = '<%= hoodies[1].title %>' >
-                     <%= hoodies[1].title %>
-                    </a>
+            
+                    <a class = "title" href='<%= hoodies[0].link %>' target = "_blank" alt = '<%= hoodies[0].title %>' >
+                      <%= hoodies[0].title %>
+                     </a>
                   </th>
                 </tr>
               </thead>
@@ -109,7 +111,7 @@
                     가격
                   </td>
                   <td>
-                    <%= hoodies[1].price %>
+                    <%= hoodies[0].price %>
                   </td>
                 </tr>
                 <tr>
@@ -117,7 +119,7 @@
                     사이즈
                   </td>
                   <td>
-                    <%= hoodies[1].size %>
+                    <%= hoodies[0].size %>
                   </td>
                 </tr>
                 <tr>
@@ -125,7 +127,7 @@
                     판매량
                   </td>
                   <td>
-                    <%= hoodies[1].sales_qty %>
+                    <%= hoodies[0].sales_qty %>
                   </td>
                 </tr>
               </tbody>
@@ -136,8 +138,8 @@
       <div class="col-lg-9">
         <div class="ui fluid card" style="width: 100%; height: 78vh; overflow-y: auto;">
         <div class="image">
-          <a href='<%= hoodies[1].link %>'>
-            <img src="<%= hoodies[1].first_img %>"  width="100%"></a>
+          <a href='<%= hoodies[0].link %>'>
+            <img src="<%= hoodies[0].first_img %>"  width="100%"></a>
         </div>
          <% for(var i=1; i < hoodies.length; i++) { %>        
                  <% if(hoodies[i].link!=hoodies[i-1].link){ %>

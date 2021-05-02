@@ -9,12 +9,7 @@ var Strategy = require('passport-local').Strategy;
 var db2 = require('./models');
 
 
-// Configure the local strategy for use by Passport.
-//
-// The local strategy requires a `verify` function which receives the credentials
-// (`username` and `password`) submitted by the user.  The function must verify
-// that the password is correct and then invoke `cb` with a user object, which
-// will be set at `req.user` in route handlers after authentication.
+
 passport.use(new Strategy(
   function(username, password, cb) {
     db2.users.findByUsername(username, function(err, user) {
@@ -26,13 +21,7 @@ passport.use(new Strategy(
   }));
 
 
-// Configure Passport authenticated session persistence.
-//
-// In order to restore authentication state across HTTP requests, Passport needs
-// to serialize users into and deserialize users out of the session.  The
-// typical implementation of this is as simple as supplying the user ID when
-// serializing, and querying the user record by ID from the database when
-// deserializing.
+
 passport.serializeUser(function(user, cb) {
   cb(null, user.id);
 });
@@ -47,8 +36,7 @@ passport.deserializeUser(function(id, cb) {
 
 const app = express();
 
-// Use application-level middleware for common functionality, including
-// logging, parsing, and session handling.
+
 app.use(require('morgan')('combined'));
 app.use(require('body-parser').urlencoded({ extended: true }));
 app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
@@ -98,30 +86,7 @@ const db = new sqlite3.Database(db_name, err => {
   console.log("Connexion réussie à la base de données 'apptest.db'");
 });
 
-// Création de la table Livres (Livre_ID, Titre, Auteur, Commentaires)
-const sql_create = `CREATE TABLE IF NOT EXISTS Livres (
-  Livre_ID INTEGER PRIMARY KEY AUTOINCREMENT,
-  Titre VARCHAR(100) NOT NULL,
-  Auteur VARCHAR(100) NOT NULL,
-  Commentaires TEXT
-);`;
-db.run(sql_create, err => {
-  if (err) {
-    return console.error(err.message);
-  }
-  console.log("Création réussie de la table 'Livres'");
-  // Alimentation de la table
-  const sql_insert = `INSERT INTO Livres (Livre_ID, Titre, Auteur, Commentaires) VALUES
-  (1, 'Mrs. Bridge', 'Evan S. Connell', 'Premier de la série'),
-  (2, 'Mr. Bridge', 'Evan S. Connell', 'Second de la série'),
-  (3, 'L''ingénue libertine', 'Colette', 'Minne + Les égarements de Minne');`;
-  db.run(sql_insert, err => {
-    if (err) {
-      return console.error(err.message);
-    }
-    console.log("Alimentation réussie de la table 'Livres'");
-  });
-});
+
 
 // Démarrage du serveur
 app.listen(8080, () => {
@@ -130,11 +95,11 @@ app.listen(8080, () => {
 
 
 app.get("/", function (req, res) {
-  res.redirect("/002018/2104");
+  res.redirect("/001001/2105");
  });
 
 
-let months = [ 210315, 2104]
+let months = [ 210315, 2104,2105]
 
 
  app.get("/:category/:month",  require('connect-ensure-login').ensureLoggedIn(),(req, res) => {
@@ -151,11 +116,12 @@ let months = [ 210315, 2104]
         console.log(rows)
         res.status(500).send(err);
       } else {
-       
+        console.log(rows)
         res.render('base', { hoodies: rows, months:months, user: req.user});
       }    
     });
   }else {    
+    console.log(rows)
     res.status(500).send('Internal Server Error');
   }
 });
