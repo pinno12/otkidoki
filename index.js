@@ -110,19 +110,44 @@ let months = [ 210315, 2104,2105]
      console.log('month:',month);
  
   if(category){
-    db.all(`SELECT * FROM all_3 WHERE category = '${category}' AND date = '${month}' ORDER BY  sales_qty DESC, first_img`, (err, rows)  => {//[id] : 사용자로부터 받은 id
+    db.all(`SELECT * FROM all_3 WHERE category = '${category}' AND date = '${month}' 
+    ORDER BY  sales_qty DESC, first_img`, (err, rows)  => {
       if(err) {
         console.log(err);
-        console.log(rows)
+
         res.status(500).send(err);
       } else {
-        console.log(rows)
+      
         res.render('base', { hoodies: rows, months:months, user: req.user});
       }    
     });
   }else {    
-    console.log(rows)
+  
     res.status(500).send('Internal Server Error');
   }
 });
 
+
+app.get("/:category/:month/:item",  require('connect-ensure-login').ensureLoggedIn(),(req, res) => {
+  
+  var category= req.params.category;
+  var month = req.params.month;
+  let item = req.params.item;
+
+  let now = 4;
+     console.log('month:',month);
+ 
+  if(category){
+    db.all(`SELECT * FROM all_3 WHERE category = '${category}' AND date = '${month}'  AND link = 'https://store.musinsa.com/app/goods/${item}'
+    ORDER BY  sales_qty DESC, first_img`, (err, rows)  => {
+      if(err) {
+        console.log(err);
+        res.status(500).send(err);
+      } else {      
+        res.render('base', { hoodies: rows, months:months, user: req.user});
+      }    
+    });
+  }else {      
+    res.status(500).send('Internal Server Error');
+  }
+});
