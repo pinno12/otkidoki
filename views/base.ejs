@@ -86,20 +86,22 @@
   </nav>
   <main class="ui main container" style="margin-top:7rem;">
    
-    <section id = "months" class = "mb-5 row-cols-4">
+    <section id = "months" class = "mb-5 row-cols-12">
      <a href = "<%= months[0] %>" class="ui teal button">3월</a>
      <a href = "<%= months[1] %>" class="ui teal button">4월</a>
      <a href = "<%= months[2] %>" class="ui teal button">5월</a>
+     <a href = "<%= months[3] %>" class="ui teal button">6월</a>
     </section>
     <section class = "row row-cols-4">
     <!-- <div class="row-cols-4 flex-row-reverse "> -->
    
-          
+      <% if (hoodies[0] != null){ %>  
       <div class="col">
         <div class="ui fluid card my-height" style="width: 100%;  overflow-y: auto;">
         <div class="image">
+
           <a href='<%= hoodies[0].link %>'>
-            <img src="<%= hoodies[0].first_img %>"  width="100%"></a>
+            <img src="<%= hoodies[0].first_img %>"  width="100%" loading="lazy"></a>
         </div>
         <div class="ui fluid card">
           <div class="image">
@@ -142,8 +144,8 @@
             </table>
           </div>
         </div>
-  
-
+        <% } else {}%> 
+       
         
          <% for(var i=1; i < hoodies.length; i++) { %>        
                  <% if(hoodies[i].link!=hoodies[i-1].link){ %>
@@ -161,13 +163,13 @@
                   <div class="ui fluid card my-height" style="width: 100%;  overflow-y: auto;">
                   <div class="image">
                     <a href='<%= hoodies[i].link %>' target = "_blank" class = "showDetails"> 
-                      <img src="<%= hoodies[i].first_img %>" width="100%">
+                      <img src="<%= hoodies[i].first_img %>" width="100%" loading="lazy">
                     </a>
                   </div>
               <%  } else { %>
                 <div class="image">
                   <a href="<%= hoodies[i].link %>" target="_blank">
-                    <img src="<%= hoodies[i].detail_img %>" width="100%"></a>
+                    <img src="<%= hoodies[i].detail_img %>"  width="100%" loading="lazy"> </a>
             </div>
             <% } %>
           <% } %>
