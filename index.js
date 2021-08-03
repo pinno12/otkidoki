@@ -95,18 +95,21 @@ app.listen(8080, () => {
 
 
 app.get("/", function (req, res) {
-  res.redirect("/001001/2106");
+  res.redirect("/001001/210803");
  });
 
 
-let months = [ 210315, 2104,2105, 2106, 210701]
+let months = [ 210315, 2104,2105, 2106, 210701, 210803]
 
 
  app.get("/:category/:month",  require('connect-ensure-login').ensureLoggedIn(),(req, res) => {
   
   var category= req.params.category;
   var month = req.params.month;
-  let now = 5;
+  
+  // now
+
+  let now = 6;
      console.log('month:',month);
  
   if(category){
