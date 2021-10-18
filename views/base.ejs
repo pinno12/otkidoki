@@ -12,7 +12,8 @@
   <meta property="og:image" content="images/kakao.png">
   <title>옷덕후</title>
   <!-- Bootstrap CSS -->
-  <!-- Bootstrap CSS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -73,8 +74,10 @@
             </ul>
           </li>
           <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-            <a class="me-3 py-2 text-white text-decoration-none" >  <%= user.username %>님 하이</li></a>
+            <li class="me-3 py-2 text-white text-decoration-none" >  <%= user.username %>님 하이</li>
             <a class="me-3 py-2 text-white text-decoration-none" href="/logout">로그아웃</a>
+            <li class="me-3 py-2 text-white text-decoration-none float-right ml-4" id = "currentTime"></li><span></span>
+            <li class="me-3 py-2 text-white text-decoration-none float-right" id = "currentTitle"></li><span></span>
        
           </nav>
         </ul>
@@ -180,11 +183,57 @@
        
           </section>
   </main>
+
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
     crossorigin="anonymous"></script>
-  
+  <script>
+    let title = ['코튼', '숏 팬츠', '트레이닝/조거', '반팔', '긴팔', '맨투맨', '후드 티셔츠', '니트', '후드집업', '카디건', '플리스/뽀글이', '트레이닝 재킷', '기타 아우터' ]
+let serial = ['003007', '003009', '003004', '001001', '001010', '001005',
+'001004',
+'001006',
+'002022',
+'002020',
+'002023',
+'002018',
+'002015']
+ currentMonth = () => {
+
+    let x = window.location.pathname.split("/")
+    // Month
+    let currentPage = x[x.length - 1].toString().substr(2,2)
+    let cloth = x[x.length - 2]
+    let currentTitle = title[serial.indexOf(cloth)]
+    // $("#currentTime").innerText = currentPage
+    document.getElementById("currentTime").innerText = currentPage + ' 월'
+    document.getElementById("currentTitle").innerText = currentTitle
+    
+    console.log(currentPage)
+  }
+
+  currentMonth();
+
+
+
+/*
+{코튼 003007	o003007	003007
+숏 팬츠 short 003009	o003009	003009
+트레이닝/조거 training 003004	o003004	003004
+반팔 short 001001	o001001	001001
+긴팔 long 001010	o001010	001010
+맨투맨 mtm 001005	o001005	001005
+후드 티셔츠ㅜ hoodie 001004	o001004	001004
+니트 knit 001006	o001006	001006
+후드집업 hoodie_zipup 002022	o002022	002022
+카디건 cardigan 002020	o002020	002020
+플리스/뽀글이 Fleece 002023	o002023	002023
+트레이닝 재킷 training 002018	o002018	002018
+기타 아우터 etc 002015	o002015	002015
+*/
+  </script>
+
 </body>
 </html>
