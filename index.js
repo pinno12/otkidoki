@@ -99,7 +99,7 @@ app.get("/", function (req, res) {
  });
 
 
-let months = [ 210315, 2104,2105, 2106, 210701, 210803, 210902]
+let months = [ 210315, 2104,2105, 2106, 210701, 210803, 210902, 2110,2111,2112,2201]
 
 
  app.get("/:category/:month",  require('connect-ensure-login').ensureLoggedIn(),(req, res) => {
