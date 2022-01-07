@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 const sqlite3 = require("sqlite3").verbose();
-
+const mysql      = require('mysql2');
 // Création du serveur Express
 
 var passport = require('passport');
@@ -75,15 +75,21 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: false }));
 
 // Connexion à la base de donnée SQlite
-const db_name = path.join(__dirname, "data", "apptest2.db");
-const db = new sqlite3.Database(db_name, err => {
-  if (err) {
-    return console.error(err.message);
-  }
-  console.log("Connexion réussie à la base de données 'apptest.db'");
+
+// 비밀번호는 별도의 파일로 분리해서 버전관리에 포함시키지 않아야 합니다. 
+let db = mysql.createConnection({
+  host     : 'otuku-do-user-8633915-0.b.db.ondigitalocean.com',
+  port: '25060',
+  user     : 'doadmin',
+  password : 'jOtP74m1OqSGaRoa',
+  database : 'defaultdb'
 });
+  
 
-
+db.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+});
 
 // Démarrage du serveur
 app.listen(8080, () => {
@@ -110,7 +116,7 @@ let months = [ 210315, 2104,2105, 2106, 210701, 210803, 210902, 2110,2111,2112,2
      console.log('month:',month);
  
   if(category){
-    db.all(`SELECT * FROM all_3 WHERE category = '${category}' AND date = '${month}' 
+    db.query(`SELECT * FROM all_3 WHERE category = '${category}' AND date = '${month}' 
     ORDER BY  sales_qty DESC, first_img`, (err, rows)  => {
       if(err) {
         console.log(err);
@@ -138,7 +144,7 @@ app.get("/:category/:month/:item",  require('connect-ensure-login').ensureLogged
      console.log('month:',month);
  
   if(category){
-    db.all(`SELECT * FROM all_3 WHERE category = '${category}' AND date = '${month}'  AND link = 'https://store.musinsa.com/app/goods/${item}'
+    db.query(`SELECT * FROM all_3 WHERE category = '${category}' AND date = '${month}'  AND link = 'https://store.musinsa.com/app/goods/${item}'
     ORDER BY  sales_qty DESC, first_img`, (err, rows)  => {
       if(err) {
         console.log(err);
