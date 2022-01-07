@@ -75,7 +75,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: false }));
 
 // Connexion à la base de donnée SQlite
-const db_name = path.join(__dirname, "data", "apptest.db");
+const db_name = path.join(__dirname, "data", "apptest2.db");
 const db = new sqlite3.Database(db_name, err => {
   if (err) {
     return console.error(err.message);
