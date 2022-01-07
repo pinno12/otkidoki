@@ -9,7 +9,6 @@ var Strategy = require('passport-local').Strategy;
 var db2 = require('./models');
 
 
-
 passport.use(new Strategy(
   function(username, password, cb) {
     db2.users.findByUsername(username, function(err, user) {
@@ -19,8 +18,6 @@ passport.use(new Strategy(
       return cb(null, user);
     });
   }));
-
-
 
 passport.serializeUser(function(user, cb) {
   cb(null, user.id);
