@@ -1,9 +1,9 @@
 const express = require("express");
 const path = require("path");
 const sqlite3 = require("sqlite3").verbose();
-const mysql      = require('mysql2');
-// Création du serveur Express
+// const mysql      = require('mysql2');
 
+const db = require('./.data/otuku')
 var passport = require('passport');
 var Strategy = require('passport-local').Strategy;
 var db2 = require('./models');
@@ -76,15 +76,6 @@ app.use(express.urlencoded({ extended: false }));
 
 // Connexion à la base de donnée SQlite
 
-// 비밀번호는 별도의 파일로 분리해서 버전관리에 포함시키지 않아야 합니다. 
-let db = mysql.createConnection({
-  host     : 'otuku-do-user-8633915-0.b.db.ondigitalocean.com',
-  port: '25060',
-  user     : 'doadmin',
-  password : 'jOtP74m1OqSGaRoa',
-  database : 'defaultdb'
-});
-  
 
 db.connect(function(err) {
   if (err) throw err;
@@ -93,7 +84,7 @@ db.connect(function(err) {
 
 // Démarrage du serveur
 app.listen(8080, () => {
-    console.log("Serveur démarré ( http://localhost:8080/ ) !");
+    console.log("서버 연결 ( http://localhost:8080/ ) !");
 });
 
 
