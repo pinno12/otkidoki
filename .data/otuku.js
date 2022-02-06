@@ -5,7 +5,7 @@ let db = mysql.createConnection({
     host     : 'otuku-do-user-8633915-0.b.db.ondigitalocean.com',
     port: '25060',
     user     : 'doadmin',
-    password : 'jOtP74m1OqSGaRoa',
+    password : 'jOtP74m1OqSGaRoz',
     database : 'defaultdb'
   });
 
